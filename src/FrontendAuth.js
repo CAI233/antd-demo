@@ -9,10 +9,20 @@ export class FrontendAuth extends React.Component{
         // const isLogin = localStorage.getItem('__config_center_token')
         console.log(this.props);
         console.log(path);
-
+        let isResquire,title ;
         if(path != '/' && path != '/login'){//校验是否为首页
-            
+            isResquire = route.meta.resquire;
+            title = route.meta.title;
+            if(isResquire){
+
+            }else{
+                // return <Redirect to='/' />
+            }
+        }else{
+            title = '登录';
         }
+        window.document.title = title;
+        
 
         return <Route path={path} render={props => <route.component {...withRouter(props)} />}></Route>
         // const routeTo = <Route path={path} render={props => <route.component {...withRouter(props)} />}></Route>

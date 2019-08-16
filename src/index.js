@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Router from './Router';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-
+//原文链接  react学习 http://huziketang.mangojuice.top/books/react/lesson14
 ReactDOM.render(<Router/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
