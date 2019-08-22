@@ -1,5 +1,7 @@
 import axios from 'axios';
-import * as apiUrl from './ApiUrl';
+import qs from 'qs';
+import * as ApiIp from './ApiIp';
+// import * as apiUrl from './ApiUrl';
 import {Toast} from 'antd-mobile';
 
 //原文链接：https://blog.csdn.net/qq_26941173/article/details/84940540
@@ -10,33 +12,40 @@ import {Toast} from 'antd-mobile';
  * @param {String} apiUrl            用户传入的请求路径
  * @param {Object} configObj        用户传入的接口参数
  */
-function getDataFromServer(url, configObj = {}) {
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';//https://www.cnblogs.com/snowhite/p/7872503.html
 
-    //用户传入的接口配置参数
-    let defaultConfig = {
+function getDataFromServer(url, configObj = {},bool = false) {
+    console.log(configObj)
+    let options = {
+        url:url,
         method :'GET',
         params : {},
         data : {},
         timeout : 5000
-    } ;
-
-    configObj = {...defaultConfig,...configObj};
+    };
+    options = {...options,...configObj};
+    axios.interceptors.request.use(function (config) {
+        if(bool){
+            config.headers['access_token'] = '';
+            config.headers['mobile_key'] = '';
+            config.headers['sellerNo_key'] = '';
+        }
+        if(options.method == 'POST'){
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        }
+        return config
+        }, function (error) {
+        return Promise.reject(error)
+    });
+    //用户传入的接口配置参数
+    
+    // configObj = {...defaultConfig,...configObj};
     /**
      * 返回的Promise对象含有then、catch方法
      */
+    // let pro = new Promise(function (resolve, reject) {
     return new Promise(function (resolve, reject) {
-        axios({
-            url: url,
-            method: configObj.method,
-            params: configObj.params,
-            data: configObj.data,
-            timeout: configObj.timeout,
-            headers: {
-                'Content-Type': 'application/json',
-                // 'token': window.sessionStorage.getItem('token') || ''
-            }
-        }).then(function (response) {
-
+        axios(options).then(function (response) {
             if(response){
                 if (response.data) {
                     let data = JSON.parse(response.data);
@@ -60,13 +69,35 @@ function getDataFromServer(url, configObj = {}) {
             reject(error);
         })
     })
-}
-//获取渠道
-export function getSellerList(configObj){
-    return getDataFromServer(apiUrl.GetSeller,configObj);
+
+
 }
 
-// 登录
-export function loginClick(configObj) {
-    return getDataFromServer(apiUrl.LOGIN, configObj);
+export function get(url, param= {}){
+    return getDataFromServer(`${ApiIp.publicIp+url}`,param);
 }
+
+export function post(url,param = {}){
+    return getDataFromServer(`${ApiIp.publicIp+url}`,{data:qs.stringify(param),method:'POST'});
+}
+
+export function wxget(url, param = {}){
+    return getDataFromServer(`${ApiIp.publicIp+url}`,param);
+}
+
+export function wxpost(url,param = {}){
+    return getDataFromServer(`${ApiIp.publicIp+url}`,{data:qs.stringify(param),method:'POST'});
+}
+
+// //获取渠道
+// export function getSellerList(configObj){
+//     return getDataFromServer(`${ApiIp.publicIp}/API/GetSellerList`,configObj);
+// }
+// export function toEN(configObj){
+//     return getDataFromServer(`${ApiIp.publicIp}/API/PostEn`,configObj);
+// }
+
+// // 登录
+// export function loginClick(configObj) {
+//     return getDataFromServer(`${ApiIp.publicIp}/API/SetLogin`, configObj);
+// }

@@ -6,7 +6,7 @@ function formProvider (fields) {
     for (const key in fields) {
       initialFormState[key] = {
         value: fields[key].defaultValue,
-        error: ''
+        error: fields[key].rules[0].error
       };
     }
 
@@ -42,16 +42,14 @@ function formProvider (fields) {
             break;
           }
         }
-        // console.log(fieldName)
-        console.log(newFieldState)
         const newForm = {...form, [fieldName]: newFieldState};
         const formValid = Object.values(newForm).every(f => f.valid);
-        console.log(newForm[fieldName])
         this.setState({
           form: newForm,
           formValid
-        }, () => console.log(this.state.form[fieldName]));
-        // console.log(this.state.form[fieldName]);
+        }, () => {
+          // console.log(this.state.form[fieldName])
+        });
       }
       render () {
         const {form, formValid} = this.state;

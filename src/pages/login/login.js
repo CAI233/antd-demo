@@ -1,59 +1,117 @@
 import React from 'react';
-import {getSellerList} from '../../HttpClientRequest/Api';
+import {get,post,wxpost} from '../../HttpClientRequest/Api';
 import formProvider from '../../utils/formProvider';
-import { List, InputItem, WhiteSpace ,Button,WingBlank,PickerView,Toast} from 'antd-mobile';
+import { List, InputItem, WhiteSpace ,Button,WingBlank,PickerView,Modal,Toast} from 'antd-mobile';
 import { createForm } from 'rc-form';//金额键盘 受控组件建议使用rc-form
-import { async } from 'q';
+// import { async } from 'q';
 
 import logo from '../../logo.svg';
 import './login.css';
 
-
-
 class login extends React.Component{
     constructor (props) {
-        console.log(props)
         super(props)
-        console.log(props)
     }
     state ={
         isShow:false,
-        SellerData:[]
+        SellerData:[],
+        SellerName:'',
+        SellerNo:''
     }
     componentDidMount(){
-        getSellerList().then((res) => {
-          console.log(res);
+        get('API/GetSellerList').then((res) => {
+          
+          let dataList = res.data;
+          if(dataList.length>0){
+            this.setState({
+              SellerName:dataList[0].SellerName,
+              SellerNo:dataList[0].SellerNo
+            })
+          }
           this.setState({
-            SellerData:res.data
+            SellerData:dataList
           })
         }).catch((error)=>{
             // error something
         })
+        // let bb = get('API/GetSellerList');
+        // console.log(bb);
     }
-    handlClick(e){
-      console.log(123);
-      // const {isShow} = this.state;
-      // this.setState({
-      //   isShow:!isShow
-      // })
+    handlClick(){//开启弹窗  
+      const {isShow} = this.state;
+      this.setState({
+        isShow:!isShow
+      })
+    }
+    pickerChange(val){//渠道改变
+      let nowVal = val.join("");
+      const {SellerData} = this.state;
+      // let now = SellerData.filter(item => item.SellerNo== nowVal)
+      let newSell = SellerData.find((value,index,arr)=>{
+        return value.SellerNo == nowVal
+      });
+      this.setState({
+        SellerName:newSell.SellerName,
+        SellerNo:newSell.SellerNo
+      })
+    }
+    ModalClose(e){//关闭弹窗
+      this.setState({
+        isShow:false
+      })
     }
 
-    Login(e){
+    async Login(e){//登录
         const {form: {UserPhone, PassWord}, formValid} = this.props;
-        // console.log(form);
-        console.log(UserPhone)
+        const {SellerNo} = this.state;
+        console.log(UserPhone);
+        if(!UserPhone.valid){
+          Toast.info(UserPhone.error);
+          return;
+        }
+        if(!PassWord.valid){
+          Toast.info(PassWord.error);
+          return;
+        }
+        let param = {
+          PassWord:'',
+          UserPhone:UserPhone.value,
+          SellerNo:SellerNo,
+          OpenId:''
+        };
+
+        // let open = await post('API/PostEn',{Content:PassWord.value}).then((res) => {
+        //   console.log(res);
+        // }).catch((error)=>{
+        //     // error something
+        // })
+
+       await post('API/PostEn',{Content:PassWord.value}).then((res) => {
+          console.log(res);
+          let enPass = res.details;
+          param.PassWord = enPass;
+        }).catch((error)=>{
+            // error something
+        })
+        post('API/SetLogin',param).then((res) => {
+          console.log(res);
+          this.props.history.push('/home')
+        }).catch((error)=>{
+            // error something
+        })    
     }
     render() {
 
-        const SellerList = (restProps) => (
-          <div className={`downList ${restProps.bool ? 'aa' : 'bb'}`} >
-          { restProps.data.map((item)=> {item['label'] = item.SellerName;item['value'] = item.SellerNo;})}
-            <PickerView data={restProps.data} cascade={false} value={['800018']} />
-          </div>
-        );
+        // const SellerList = (restProps) => (
+        //   <div className={`downList ${restProps.bool ? 'aa' : 'bb'}`} >
+        //   { restProps.data.map((item)=> {item['label'] = item.SellerName;item['value'] = item.SellerNo;})}
+            
+        //   </div>
+        // );
         const {form: {UserPhone, PassWord}, handleChange} = this.props;
-        const {SellerData,isShow} = this.state;
+        const {SellerData,isShow,SellerName,SellerNo} = this.state;
         let newData = [...SellerData];
+        newData.map((item)=> {item['label'] = item.SellerName;item['value'] = item.SellerNo});
         return (
             <div id="container">
               <div className="cont">
@@ -62,22 +120,24 @@ class login extends React.Component{
                 </div>
                 <div className="cont">
                     <List>
-                        <InputItem placeholder="选择渠道品牌" disabled onChange={(e) => this.handlClick(e)} value={UserPhone.value}>渠道品牌</InputItem>
+                      {/*  */}
+                        <div onClick={() => this.handlClick()}><InputItem placeholder="选择渠道品牌" disabled value={SellerName}>渠道品牌</InputItem></div>
+                        {/* <div onClick={() => isShow = !isShow}><InputItem placeholder="选择渠道品牌" disabled value={SellerName}>渠道品牌</InputItem></div> */}
                         <InputItem clear placeholder="手机号/微信号" onChange={(e) => handleChange('UserPhone', e)} value={UserPhone.value}>账号</InputItem>
                         <InputItem type="PassWord" placeholder="输入密码" onChange={(e) => handleChange('PassWord', e)} value={PassWord.value} >密码</InputItem>
                     </List>
                     <WingBlank>
-                        <Button onClick={(e) => this.Login(e)}>登录</Button><WhiteSpace />
+                        <Button onClick={() => this.Login()}>登录</Button><WhiteSpace />
                     </WingBlank>
                     {/* <div className="cont-foot">
                         <p onClick={() => this.props.history.push('/forgetPass')}>忘记密码？</p>
                     </div> */}
                 </div>
               </div>
-              <div className="foot">
-                    {/* <SellerList {...SellerData} /> */}
-                    <SellerList bool={isShow} data={newData} />
-              </div>
+              {/* afterClose={() => { alert('afterClose'); }} */}
+              <Modal popup visible={isShow} onClose={() =>this.ModalClose()} animationType="slide-up" >
+                <PickerView data={newData} cascade={false} value={[SellerNo]} onChange={(e) =>this.pickerChange(e)} />
+              </Modal>
            </div>
        );
    }

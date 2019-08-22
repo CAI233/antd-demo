@@ -1,10 +1,10 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { Route,Redirect,withRouter } from 'react-router-dom';
 
 export class FrontendAuth extends React.Component{
     render(){
         const route = this.props;
-        const { location,path } = route;
+        const {path } = route;
         // const { pathname } = location;
         // const isLogin = localStorage.getItem('__config_center_token')
         console.log(this.props);
@@ -16,7 +16,7 @@ export class FrontendAuth extends React.Component{
             if(isResquire){
 
             }else{
-                // return <Redirect to='/' />
+                return <Redirect to='/' />
             }
         }else{
             title = '登录';
