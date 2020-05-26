@@ -1,0 +1,1 @@
+export const SELLER_LIST = 'SELLER_LIST'

@@ -1,4 +1,3 @@
-
 import login from './../pages/login/login';
 import home from './../pages/home';
 import {goods} from './../pages/goods';

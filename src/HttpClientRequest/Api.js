@@ -88,16 +88,3 @@ export function wxget(url, param = {}){
 export function wxpost(url,param = {}){
     return getDataFromServer(`${ApiIp.publicIp+url}`,{data:qs.stringify(param),method:'POST'});
 }
-
-// //获取渠道
-// export function getSellerList(configObj){
-//     return getDataFromServer(`${ApiIp.publicIp}/API/GetSellerList`,configObj);
-// }
-// export function toEN(configObj){
-//     return getDataFromServer(`${ApiIp.publicIp}/API/PostEn`,configObj);
-// }
-
-// // 登录
-// export function loginClick(configObj) {
-//     return getDataFromServer(`${ApiIp.publicIp}/API/SetLogin`, configObj);
-// }

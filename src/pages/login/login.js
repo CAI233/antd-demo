@@ -1,5 +1,7 @@
 import React from 'react';
-import {get,post,wxpost} from '../../HttpClientRequest/Api';
+// import {get,post} from '../../HttpClientRequest/Api';
+import { connect } from 'react-redux'
+import * as actions from './../../actions/puplic'
 import formProvider from '../../utils/formProvider';
 import { List, InputItem, WhiteSpace ,Button,WingBlank,PickerView,Modal,Toast} from 'antd-mobile';
 import { createForm } from 'rc-form';//金额键盘 受控组件建议使用rc-form
@@ -7,6 +9,7 @@ import { createForm } from 'rc-form';//金额键盘 受控组件建议使用rc-f
 
 import logo from '../../logo.svg';
 import './login.css';
+// @connect(state => state.puplic,{ ...actions});
 
 class login extends React.Component{
     constructor (props) {
@@ -19,23 +22,24 @@ class login extends React.Component{
         SellerNo:''
     }
     componentDidMount(){
-        get('API/GetSellerList').then((res) => {
+        // get('API/GetSellerList').then((res) => {
           
-          let dataList = res.data;
-          if(dataList.length>0){
-            this.setState({
-              SellerName:dataList[0].SellerName,
-              SellerNo:dataList[0].SellerNo
-            })
-          }
-          this.setState({
-            SellerData:dataList
-          })
-        }).catch((error)=>{
-            // error something
-        })
-        // let bb = get('API/GetSellerList');
-        // console.log(bb);
+        //   let dataList = res.data;
+        //   if(dataList.length>0){
+        //     this.setState({
+        //       SellerName:dataList[0].SellerName,
+        //       SellerNo:dataList[0].SellerNo
+        //     })
+        //   }
+        //   this.setState({
+        //     SellerData:dataList
+        //   })
+        // }).catch((error)=>{
+
+        // })
+        // console.log(actions)
+        console.log(this.props)
+
     }
     handlClick(){//开启弹窗  
       const {isShow} = this.state;
@@ -86,28 +90,22 @@ class login extends React.Component{
         //     // error something
         // })
 
-       await post('API/PostEn',{Content:PassWord.value}).then((res) => {
-          console.log(res);
-          let enPass = res.details;
-          param.PassWord = enPass;
-        }).catch((error)=>{
-            // error something
-        })
-        post('API/SetLogin',param).then((res) => {
-          console.log(res);
-          this.props.history.push('/home')
-        }).catch((error)=>{
-            // error something
-        })    
+      //  await post('API/PostEn',{Content:PassWord.value}).then((res) => {
+      //     console.log(res);
+      //     let enPass = res.details;
+      //     param.PassWord = enPass;
+      //   }).catch((error)=>{
+      //       // error something
+      //   })
+      //   post('API/SetLogin',param).then((res) => {
+      //     console.log(res);
+      //     this.props.history.push('/home')
+      //   }).catch((error)=>{
+      //       // error something
+      //   })    
     }
     render() {
-
-        // const SellerList = (restProps) => (
-        //   <div className={`downList ${restProps.bool ? 'aa' : 'bb'}`} >
-        //   { restProps.data.map((item)=> {item['label'] = item.SellerName;item['value'] = item.SellerNo;})}
-            
-        //   </div>
-        // );
+        console.log(this.props)
         const {form: {UserPhone, PassWord}, handleChange} = this.props;
         const {SellerData,isShow,SellerName,SellerNo} = this.state;
         let newData = [...SellerData];
@@ -142,14 +140,13 @@ class login extends React.Component{
        );
    }
 }
-
 // 必须给UserAdd定义一个包含router属性的contextTypes
 // 使得组件中可以通过this.context.router来使用React Router提供的方法
 // this.context.router.push('/user') 跳转
 // UserAdd.contextTypes = {
 //     router: React.PropTypes.object.isRequired
 // };
-
+connect(state => state.puplic,{...actions})(login);
 login = formProvider({
   UserPhone: {
       defaultValue: '',
@@ -178,6 +175,6 @@ login = formProvider({
       ]
     }
   })(login);
-
   login = createForm()(login);
+
   export default login

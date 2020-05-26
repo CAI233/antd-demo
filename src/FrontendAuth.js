@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route,Redirect,withRouter } from 'react-router-dom';
-
+console.log(789);
 export class FrontendAuth extends React.Component{
     render(){
+        
         const route = this.props;
         const {path } = route;
+        
         // const { pathname } = location;
         // const isLogin = localStorage.getItem('__config_center_token')
         console.log(this.props);
-        console.log(path);
         let isResquire,title ;
         if(path != '/' && path != '/login'){//校验是否为首页
             isResquire = route.meta.resquire;

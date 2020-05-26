@@ -12,7 +12,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
-               <a >Home页面</a> 
+               <p >Home页面</p> 
                <p onClick={() => this.props.history.push('/goods')}>去商品页</p>
             </div>
         )
