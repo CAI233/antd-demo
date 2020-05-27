@@ -14,6 +14,7 @@ import * as serviceWorker from './serviceWorker';
 //react学习  https://github.com/minooo/React-Study
 //react+redux开发详细步骤 https://www.cnblogs.com/tdtdttd/p/11161735.html
 //React+Redux基础 https://www.jianshu.com/p/7ee366bdf276
+//react-redux的使用采用@connect修饰器 https://blog.csdn.net/qq_38474685/article/details/81388205?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase
 const store = configStore()
 // ReactDOM.render(<Router/>, document.getElementById('root'))
 ReactDOM.render(<Provider store={store}>

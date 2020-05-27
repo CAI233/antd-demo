@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import qs from 'qs';
+// import qs from 'qs';
 import {host} from './../constants/api'
 // const host = HOST
 

@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import * as actions from './../../actions/puplic'
 import formProvider from '../../utils/formProvider';
 import { List, InputItem, WhiteSpace ,Button,WingBlank,PickerView,Modal,Toast} from 'antd-mobile';
-import { createForm } from 'rc-form';//金额键盘 受控组件建议使用rc-form
+// import { createForm } from 'rc-form';//金额键盘 受控组件建议使用rc-form
 // import { async } from 'q';
 
 import logo from '../../logo.svg';
 import './login.css';
-// @connect(state => state.puplic,{ ...actions});
+// @connect
+// @connect(state => state.puplic,{ ...actions})
 
 class login extends React.Component{
     constructor (props) {
@@ -175,6 +176,6 @@ login = formProvider({
       ]
     }
   })(login);
-  login = createForm()(login);
+  // login = createForm()(login);
 
   export default login
