@@ -6,11 +6,10 @@ import formProvider from '../../utils/formProvider';
 import { List, InputItem, WhiteSpace ,Button,WingBlank,PickerView,Modal,Toast} from 'antd-mobile';
 // import { createForm } from 'rc-form';//金额键盘 受控组件建议使用rc-form
 // import { async } from 'q';
-
 import logo from '../../logo.svg';
 import './login.css';
 // @connect
-// @connect(state => state.puplic,{ ...actions})
+@connect(state => state.puplic,{ ...actions})
 
 class login extends React.Component{
     constructor (props) {
@@ -22,25 +21,14 @@ class login extends React.Component{
         SellerName:'',
         SellerNo:''
     }
-    componentDidMount(){
-        // get('API/GetSellerList').then((res) => {
-          
-        //   let dataList = res.data;
-        //   if(dataList.length>0){
-        //     this.setState({
-        //       SellerName:dataList[0].SellerName,
-        //       SellerNo:dataList[0].SellerNo
-        //     })
-        //   }
-        //   this.setState({
-        //     SellerData:dataList
-        //   })
-        // }).catch((error)=>{
-
-        // })
-        // console.log(actions)
-        console.log(this.props)
-
+    async componentDidMount(){
+        await this.props.dispatchSeller();
+        const {sellerList} = this.props
+        this.setState({
+          SellerData:sellerList,
+          SellerName:sellerList[0].title,
+          SellerNo:sellerList[0].title
+        })
     }
     handlClick(){//开启弹窗  
       const {isShow} = this.state;
@@ -51,16 +39,13 @@ class login extends React.Component{
     pickerChange(val){//渠道改变
       let nowVal = val.join("");
       const {SellerData} = this.state;
-      // let now = SellerData.filter(item => item.SellerNo== nowVal)
-      let newSell = SellerData.find((value,index,arr)=>{
-        return value.SellerNo == nowVal
-      });
+      const nowSelect = SellerData.find( item => {return item.title == nowVal});
       this.setState({
-        SellerName:newSell.SellerName,
-        SellerNo:newSell.SellerNo
+        SellerName:nowSelect.title,
+        SellerNo:nowSelect.title
       })
     }
-    ModalClose(e){//关闭弹窗
+    ModalClose(){//关闭弹窗
       this.setState({
         isShow:false
       })
@@ -69,7 +54,7 @@ class login extends React.Component{
     async Login(e){//登录
         const {form: {UserPhone, PassWord}, formValid} = this.props;
         const {SellerNo} = this.state;
-        console.log(UserPhone);
+        console.log(UserPhone)
         if(!UserPhone.valid){
           Toast.info(UserPhone.error);
           return;
@@ -84,33 +69,12 @@ class login extends React.Component{
           SellerNo:SellerNo,
           OpenId:''
         };
-
-        // let open = await post('API/PostEn',{Content:PassWord.value}).then((res) => {
-        //   console.log(res);
-        // }).catch((error)=>{
-        //     // error something
-        // })
-
-      //  await post('API/PostEn',{Content:PassWord.value}).then((res) => {
-      //     console.log(res);
-      //     let enPass = res.details;
-      //     param.PassWord = enPass;
-      //   }).catch((error)=>{
-      //       // error something
-      //   })
-      //   post('API/SetLogin',param).then((res) => {
-      //     console.log(res);
-      //     this.props.history.push('/home')
-      //   }).catch((error)=>{
-      //       // error something
-      //   })    
     }
     render() {
-        console.log(this.props)
-        const {form: {UserPhone, PassWord}, handleChange} = this.props;
-        const {SellerData,isShow,SellerName,SellerNo} = this.state;
-        let newData = [...SellerData];
-        newData.map((item)=> {item['label'] = item.SellerName;item['value'] = item.SellerNo});
+        const {form: {UserPhone, PassWord}, handleChange,} = this.props;
+        const {isShow,SellerName,SellerNo,SellerData} = this.state;
+        const newData = [...SellerData];
+        newData.map((item)=> {item['label'] = item.title;item['value'] = item.title});
         return (
             <div id="container">
               <div className="cont">
@@ -119,22 +83,17 @@ class login extends React.Component{
                 </div>
                 <div className="cont">
                     <List>
-                      {/*  */}
                         <div onClick={() => this.handlClick()}><InputItem placeholder="选择渠道品牌" disabled value={SellerName}>渠道品牌</InputItem></div>
-                        {/* <div onClick={() => isShow = !isShow}><InputItem placeholder="选择渠道品牌" disabled value={SellerName}>渠道品牌</InputItem></div> */}
                         <InputItem clear placeholder="手机号/微信号" onChange={(e) => handleChange('UserPhone', e)} value={UserPhone.value}>账号</InputItem>
                         <InputItem type="PassWord" placeholder="输入密码" onChange={(e) => handleChange('PassWord', e)} value={PassWord.value} >密码</InputItem>
                     </List>
                     <WingBlank>
                         <Button onClick={() => this.Login()}>登录</Button><WhiteSpace />
                     </WingBlank>
-                    {/* <div className="cont-foot">
-                        <p onClick={() => this.props.history.push('/forgetPass')}>忘记密码？</p>
-                    </div> */}
                 </div>
               </div>
               {/* afterClose={() => { alert('afterClose'); }} */}
-              <Modal popup visible={isShow} onClose={() =>this.ModalClose()} animationType="slide-up" >
+              <Modal popup visible={isShow} onClose={() =>this.ModalClose()} maskClosable={true} animationType="slide-up" >
                 <PickerView data={newData} cascade={false} value={[SellerNo]} onChange={(e) =>this.pickerChange(e)} />
               </Modal>
            </div>

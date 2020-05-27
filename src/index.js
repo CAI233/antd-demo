@@ -9,6 +9,7 @@ import configStore from './store'
 import Router from './Router';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+//解决跨域 https://blog.csdn.net/weixin_44415625/article/details/87607924
 // https://blog.csdn.net/awaw00/article/category/6642917 
 //原文链接  react学习 http://huziketang.mangojuice.top/books/react/lesson14
 //react学习  https://github.com/minooo/React-Study

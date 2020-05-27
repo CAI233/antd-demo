@@ -1,8 +1,6 @@
 
 import axios from 'axios';
 // import qs from 'qs';
-import {host} from './../constants/api'
-// const host = HOST
 
 function requestHttp(options) {
     const { url, payload, method = 'GET', showToast = true, autoLogin = true } = options
@@ -10,15 +8,17 @@ function requestHttp(options) {
     if (method == 'POST') {
       header['content-type'] = 'application/json'
     }
-    console.log('进去了')
+    console.log(url)
     return axios({
-        url:host+url,
+        url:'/api'+url,
         method,
         data: payload,
         header
     }).then((res) => {
-        console.log(res);
-        return res
+        const { code, data } = res.data;
+        if(code == 200){
+            return data
+        }
     }).catch((err) => {
         console.log(err);
         // const defaultMsg = err.code === CODE_AUTH_EXPIRED ? '登录失效' : '请求异常'
