@@ -55,20 +55,21 @@ class login extends React.Component{
         const {form: {UserPhone, PassWord}, formValid} = this.props;
         const {SellerNo} = this.state;
         console.log(UserPhone)
-        if(!UserPhone.valid){
-          Toast.info(UserPhone.error);
-          return;
-        }
-        if(!PassWord.valid){
-          Toast.info(PassWord.error);
-          return;
-        }
-        let param = {
+        // if(!UserPhone.valid){
+        //   Toast.info(UserPhone.error);
+        //   return;
+        // }
+        // if(!PassWord.valid){
+        //   Toast.info(PassWord.error);
+        //   return;
+        // }
+        const param = {
           PassWord:'',
           UserPhone:UserPhone.value,
           SellerNo:SellerNo,
           OpenId:''
         };
+        this.props.history.push('/home')
     }
     render() {
         const {form: {UserPhone, PassWord}, handleChange,} = this.props;

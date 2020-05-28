@@ -12,3 +12,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* error */
+#container{
+  position: relative;
+  width:100vw;
+  height:100vh;
+}
+.waite{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.waite img{
+  object-fit: scale-down;
+  vertical-align: bottom;
+  width:100%;
+  height:100%;
+}
+

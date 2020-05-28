@@ -1,19 +1,19 @@
 import React from 'react';
 import { Route,Redirect,withRouter } from 'react-router-dom';
-console.log(789);
+import Tabbar from './components/tabbar'
+
 export class FrontendAuth extends React.Component{
+    // constructor (props) {
+    //     super(props)
+    // }
     render(){
-        
-        const route = this.props;
-        const {path } = route;
-        
-        // const { pathname } = location;
-        // const isLogin = localStorage.getItem('__config_center_token')
-        console.log(this.props);
-        let isResquire,title ;
+        const routeProps = this.props;
+        const {meta,path} = routeProps;
+        let isResquire,title,isFoot ;
         if(path != '/' && path != '/login'){//校验是否为首页
-            isResquire = route.meta.resquire;
-            title = route.meta.title;
+            isResquire = meta.resquire;
+            title = meta.title;
+            isFoot = meta.isFoot;
             if(isResquire){
 
             }else{
@@ -23,9 +23,26 @@ export class FrontendAuth extends React.Component{
             title = '登录';
         }
         window.document.title = title;
-        
+        console.log(routeProps)
+        return (
+            <div className="routeAuth">
+                <Route path={path} render={props => <routeProps.component  {...withRouter(props)} routes={routeProps.routes} />}>
+                    {/* {routeProps.routes ? <Route path={path} render={props => <routeProps.component  {...withRouter(props)} />}></Route> : ''} */}
+                </Route>
+                {isFoot ? <Tabbar path={path}  /> : ''}
+                
+            </div>
+        )
+        // return <Route path={path} render={props => <routeProps.component {...props} routes={routeProps.routes}  />}></Route>
 
-        return <Route path={path} render={props => <route.component {...withRouter(props)} />}></Route>
+    //     return <Route
+    //     path={path}
+    //     render={props => {
+    //         console.log(props)
+    //         // console.log(route)
+    //         return <this.props.component {...props} routes={this.props.routes} />
+    //     }}
+    // />
         // const routeTo = <Route path={path} render={props => <route.component {...withRouter(props)} />}></Route>
  
         // 如果该路由不用进行权限校验，登录状态下登陆页除外

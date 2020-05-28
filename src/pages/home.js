@@ -7,7 +7,8 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             id:3
-          };
+        };
+        console.log(props)
     }
     render() {
         return (
