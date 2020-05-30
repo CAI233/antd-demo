@@ -15,6 +15,7 @@ export default class home extends React.Component {
             <div>
                <p >Home页面</p> 
                <p onClick={() => this.props.history.push('/goods')}>去商品页</p>
+               <p onClick={() => this.props.history.push('/goods/tab6')}>去商品6页</p>
             </div>
         )
     }

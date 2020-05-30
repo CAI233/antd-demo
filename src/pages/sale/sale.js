@@ -15,13 +15,7 @@ class sale extends React.Component{
 						<Link to={`/sale/sale2`}>路由sale2</Link>
 					</div>   
 					<div className="right">
-					{
-                        this.props.routes.map((item,index)=>
-                        {
-                            return <Route key={index} exact path={match.url+item.path} component={item.component}/>
-                        }
-                        )
-                    }
+					
 					</div>
 			    </div>
 			</div>

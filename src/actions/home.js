@@ -4,7 +4,7 @@ import {
   import {
     API_HOME, API_HOME_SEARCH_COUNT, API_HOME_RECOMMEND, API_HOME_PIN
   } from './../constants/api'
-  import { createAction } from './../utils/redux'
+  import { createAction } from './../utils/http'
   
   /**
    * 首页数据

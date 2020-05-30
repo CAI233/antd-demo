@@ -33,12 +33,10 @@ class Tabbar extends React.Component{
     chooseBar(val){
       this.setState({
           selectedTab:val,
-      });
+      }); 
       this.props.history.push(val)
     }
     render(){
-        const routeProps = this.props;
-        const {path} = routeProps;
         return (
             <div style={style}>
                 <TabBar unselectedTintColor="#000000" tintColor="#0B9486" barTintColor="#fafafa">
@@ -61,3 +59,4 @@ class Tabbar extends React.Component{
     }
 }
 export default withRouter(Tabbar)
+// export default Tabbar

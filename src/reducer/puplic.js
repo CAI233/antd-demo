@@ -1,6 +1,7 @@
 import {SELLER_LIST} from './../constants/puplic'
 
 const INITIAL_STATE = {
+    token:'1234',
     sellerList:[],
     recommend: [],
     isFoot:false

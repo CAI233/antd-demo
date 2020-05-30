@@ -1,39 +1,51 @@
-import React from 'react';
+import React from 'react'
 import { Route,Redirect,withRouter } from 'react-router-dom';
-import Tabbar from './components/tabbar'
-export class FrontendAuth extends React.Component{
-    // constructor (props) {
-    //     super(props)
-    // }
+
+import { connect } from 'react-redux'
+
+// import Tabbar from './components/tabbar'
+
+const mapStateToProps = (state, ownProps) => {
+   return { token: state.puplic.token}
+}
+
+@connect(mapStateToProps)
+class FrontendAuth extends React.Component{
+    constructor(props) {
+        super()
+    }
     render(){
         const routeProps = this.props;
-        const {meta,path} = routeProps;
-        let isResquire,title,isFoot ;
-        if(path != '/' && path != '/login'){//校验是否为首页
-            isResquire = meta.resquire;
-            title = meta.title;
-            isFoot = meta.isFoot;
-            if(isResquire){
-
+        const {meta,location,path,token} = routeProps;
+        if(token){
+            let isResquire,title,isFoot ;
+            if(path != '/' && path != '/login'){//校验是否为首页
+                isResquire = meta.resquire;
+                title = meta.title;
+                isFoot = meta.isFoot;
+                if(!token || token==''){
+                    return <Redirect to='/' />
+                }
             }else{
-                return <Redirect to='/' />
+                title = '登录';
+            }
+            console.log('routeProps===',routeProps)
+            window.document.title = title;
+            if(routeProps.exact){
+                return <div className="container">
+                    <Route exact path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
+                    {/* {isFoot ? <Tabbar path={path}  /> : ''} */}
+                </div>
+            }else{
+                return <div className="container">
+                    <Route path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
+                    {/* {isFoot ? <Tabbar path={path}  /> : ''} */}
+                </div>
             }
         }else{
-            title = '登录';
+            return <Redirect to='/' />
         }
-        console.log(routeProps)
-        window.document.title = title;
-        if(routeProps.exact){
-            return <div>
-                <Route exact path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
-                {isFoot ? <Tabbar path={path}  /> : ''}
-            </div>
-        }else{
-            return <div>
-                <Route path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
-                {isFoot ? <Tabbar path={path}  /> : ''}
-            </div>
-        }
+        
         // return <Route path={path} render={props => <routeProps.component {...props} routes={routeProps.routes}  />}></Route>
 
     //     return <Route
@@ -79,3 +91,5 @@ export class FrontendAuth extends React.Component{
         // }
     }
 }
+export default withRouter(FrontendAuth)
+// export default withRouter(FrontendAuth)

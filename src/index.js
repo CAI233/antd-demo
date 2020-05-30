@@ -20,7 +20,8 @@ import * as serviceWorker from './serviceWorker';
 //嵌套子路由 https://www.jianshu.com/p/e05ed8b6e76e
 const store = configStore()
 // ReactDOM.render(<Router/>, document.getElementById('root'))
-ReactDOM.render(<Provider store={store}>
+ReactDOM.render(
+<Provider store={store}>
     <BrowserRouter>
         <BasicRouter/>
     </BrowserRouter>

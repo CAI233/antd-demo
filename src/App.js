@@ -1,10 +1,9 @@
 import React,{Component} from 'react';
 import {HashRouter, Switch,BrowserRouter,Route} from 'react-router-dom';
-import {FrontendAuth} from './FrontendAuth';
-import notFound from './pages/notFound'
-import Routes from './router/index'
-
-
+// import FrontendAuth from './FrontendAuth';
+// import notFound from './pages/notFound'
+import MergeRoute from './MergeRoute'
+import Routes from './router'
 const RouteWithSubRoutes = route => (
   <Route
       path={route.path}
@@ -17,29 +16,28 @@ const RouteWithSubRoutes = route => (
   />
 );
 
-class BasicRouter extends Component {
-    render() {
-      return (
-        //带#号
-        // <HashRouter history={BrowserRouter }>
-        //     <Switch>
-        //         {Routes.map((route, i) => (
-        //           <RouteWithSubRoutes key={i} {...route}/>
-        //         ))}
-        //     </Switch>
-        // </HashRouter>
-        //不带#号
-        <BrowserRouter history={HashRouter }>
-            <Switch>
-                {Routes.map((route, i) => (
-                  <FrontendAuth key={i} {...route} />
-                    // <RouteWithSubRoutes key={i} {...route}/> 
-                ))}
-                <Route component={notFound}/> 
-            </Switch>
-        </BrowserRouter>
-      );
-    }
+export default class BasicRouter extends Component {
+  render() {
+    console.log('app.js====',this.props)
+    return (
+      //带#号
+      // <HashRouter history={BrowserRouter }>
+      //     <Switch>
+      //         {Routes.map((route, i) => (
+      //           <RouteWithSubRoutes key={i} {...route}/>
+      //         ))}
+      //     </Switch>
+      // </HashRouter>
+      //不带#号
+      <BrowserRouter history={HashRouter }>
+          <MergeRoute routes={Routes}/>
+          {/* <Switch>
+            {Routes.map((route, i) => (
+              <FrontendAuth key={i} {...route} />
+            ))}
+            <Route component={notFound}/> 
+          </Switch> */}
+      </BrowserRouter>
+    );
   }
-
-export default BasicRouter;
+}
