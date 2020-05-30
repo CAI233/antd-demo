@@ -21,19 +21,28 @@ export class FrontendAuth extends React.Component{
         }else{
             title = '登录';
         }
-        console.log(routeProps)
         window.document.title = title;
-        if(routeProps.exact){
-            return <div>
-                <Route exact path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
+        return (
+            <div className="routeAuth">
+                {/* <Route path={path} render={props => <routeProps.component  {...withRouter(props)} />}></Route> */}
+                {routeProps.routes && routeProps.routes.length>0 ? <Route path={path} component={routeProps.component} >
+                    {/* {routeProps.routes.map((item, i) => (
+						<Route key={i} path={item.path} component={item.component}></Route>
+					))} */}
+                </Route> : <Route path={path} render={props => <routeProps.component  {...props} />}></Route>}
+                {/* {routeProps.routes && routeProps.routes.length>0 ? <Route path={path} render={props => 
+                {
+                    console.log(props)
+                    props.displayName = 'abc'
+                    // return <routeProps.component {...withRouter(props)} />
+                    return <routeProps.component routes={routeProps.routes} {...props} />
+                }   
+                }>
+                </Route> : <Route path={path} render={props => <routeProps.component  {...props} />}></Route>} */}
                 {isFoot ? <Tabbar path={path}  /> : ''}
+                
             </div>
-        }else{
-            return <div>
-                <Route path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
-                {isFoot ? <Tabbar path={path}  /> : ''}
-            </div>
-        }
+        )
         // return <Route path={path} render={props => <routeProps.component {...props} routes={routeProps.routes}  />}></Route>
 
     //     return <Route

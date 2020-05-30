@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default class Home extends React.Component {
+export default class home extends React.Component {
 
     constructor(props) {
         super(props);

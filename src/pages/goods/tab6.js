@@ -3,12 +3,15 @@ import React, { Component } from 'react';
 class tab6 extends Component {
     constructor (props) {
         super(props)
-        // console.log(props)
+        console.log(props)
     }
  
    render() {
        return (
-            <p>Message6</p>
+            <div>
+                <p>Message6</p>
+                <p onClick={() => this.props.history.push('/home')}>去商品页</p>
+            </div>
        );
    }
 }

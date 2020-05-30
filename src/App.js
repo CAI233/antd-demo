@@ -4,6 +4,7 @@ import {FrontendAuth} from './FrontendAuth';
 import notFound from './pages/notFound'
 import Routes from './router/index'
 
+
 const RouteWithSubRoutes = route => (
   <Route
       path={route.path}
@@ -34,9 +35,6 @@ class BasicRouter extends Component {
                   <FrontendAuth key={i} {...route} />
                     // <RouteWithSubRoutes key={i} {...route}/> 
                 ))}
-                {Routes.map((route, i) => {
-                  // console.log(route);
-                })}
                 <Route component={notFound}/> 
             </Switch>
         </BrowserRouter>

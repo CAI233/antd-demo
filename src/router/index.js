@@ -1,7 +1,9 @@
 import login from './../pages/login/login';
 import home from './../pages/home';
 import {goods} from './../pages/goods';
-import tab6 from './../pages/goods/tab6';
+import sale from './../pages/sale';
+import sale1 from './../pages/sale/sale1';
+import sale2 from './../pages/sale/sale2';
 const Routes = [
     {
         path:'/',
@@ -25,14 +27,23 @@ const Routes = [
         path:'/goods',
         name:'goods',
         component:goods,
-        meta: {title: '商品',resquire:true,isFoot:true},
+        meta: {title: '商品',resquire:true,isFoot:true}
+    },
+    {
+        path:'/sale',
+        name:'sale',
+        component:sale,
+        meta: {title: '销售',resquire:true,isFoot:true},
         routes:[
             {
-                path:'/goods/goods1',
-                name:'goods1',
-                title:'商品页面1',
-                component:tab6,
-                meta: {title: '商品页面1',resquire:true,isFoot:true},
+                path:"/sale1",
+                component:sale1,
+                meta: {title: '销售1',resquire:true,isFoot:true}
+            },
+            {
+                path:"/sale2",
+                component:sale2,
+                meta: {title: '销售2',resquire:true,isFoot:false}
             }
         ]
     }

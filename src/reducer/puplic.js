@@ -2,7 +2,8 @@ import {SELLER_LIST} from './../constants/puplic'
 
 const INITIAL_STATE = {
     sellerList:[],
-    recommend: []
+    recommend: [],
+    isFoot:false
   }
 
 export default function puplic(state = INITIAL_STATE, action) {
