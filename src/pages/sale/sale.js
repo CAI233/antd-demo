@@ -1,5 +1,8 @@
 import React from 'react';
-import {Link,withRouter,Route} from 'react-router-dom';
+import {Link,Switch,Route} from 'react-router-dom';
+
+import sale1 from './sale1';
+import sale2 from './sale2';
 
 class sale extends React.Component{
     constructor (props) {
@@ -11,11 +14,21 @@ class sale extends React.Component{
 			<div className="tab">
 			    <div className="top">
 					<div className="left"> 
-						<Link to={`/sale/sale1`}>路由sale1</Link>
-						<Link to={`/sale/sale2`}>路由sale2</Link>
+						<Link to={`/sale/sale4`}>路由sale1</Link>
+						<Link to={`/sale/sale5`}>路由sale2</Link>
 					</div>   
 					<div className="right">
-					
+						<Switch>
+						<Route 
+								exact 
+								path={`${match.path}`} 
+								component={sale1}
+							/>            
+							<Route 
+								path={`${match.path}/:tabName`} 
+								component={sale2}
+							/>     
+						</Switch>
 					</div>
 			    </div>
 			</div>

@@ -19,7 +19,7 @@ class login extends React.Component{
         isShow:false,
         SellerData:[],
         SellerName:'',
-        SellerNo:''
+        SellerNo:'',
     }
     async componentDidMount(){
         await this.props.dispatchSeller();
@@ -54,7 +54,6 @@ class login extends React.Component{
     async Login(e){//登录
         const {form: {UserPhone, PassWord}, formValid} = this.props;
         const {SellerNo} = this.state;
-        console.log(UserPhone)
         // if(!UserPhone.valid){
         //   Toast.info(UserPhone.error);
         //   return;

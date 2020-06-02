@@ -18,13 +18,14 @@ import * as serviceWorker from './serviceWorker';
 //react-redux的使用采用@connect修饰器 https://blog.csdn.net/qq_38474685/article/details/81388205?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase
 //React Router 使用教程 阮一峰 http://www.ruanyifeng.com/blog/2016/05/react_router.html?utm_source=tool.lu
 //嵌套子路由 https://www.jianshu.com/p/e05ed8b6e76e
+//onEnter是进入到某个Route时调用，在里面跳转不会重复触发，onChange在里面跳转时也会触发
 const store = configStore()
 // ReactDOM.render(<Router/>, document.getElementById('root'))
 ReactDOM.render(
 <Provider store={store}>
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
         <BasicRouter/>
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
 </Provider>, document.getElementById('root'))
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -2,7 +2,7 @@ import React from 'react'
 import {withRouter} from 'react-router-dom';
 import { TabBar } from 'antd-mobile';
 
-import './index.css'
+import './tabbar.css'
 
 
 const select = [
@@ -35,8 +35,10 @@ class Tabbar extends React.Component{
           selectedTab:val,
       }); 
       this.props.history.push(val)
+      console.log(val)
     }
     render(){
+        console.log(this.props)
         return (
             <div style={style}>
                 <TabBar unselectedTintColor="#000000" tintColor="#0B9486" barTintColor="#fafafa">

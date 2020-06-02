@@ -19,7 +19,7 @@
 import login from './../pages/login/login';
 import home from './../pages/home';
 import goods from './../pages/goods/goods';
-// import goodshome from './../pages/goods/goodshome';
+import goodshome from './../pages/goods/goodshome';
 import sale from './../pages/sale/sale';
 import tab5 from './../pages/goods/tab5';
 import tab6 from './../pages/goods/tab6';
@@ -63,12 +63,12 @@ const Routes = [
             }
         ]
     },
-    // {
-    //     path:'/goodshome',
-    //     name:'goodshome',
-    //     component:goodshome,
-    //     meta: {title: 'goodshome',resquire:true,isFoot:true}
-    // },
+    {
+        path:'/goodshome',
+        name:'goodshome',
+        component:goodshome,
+        meta: {title: 'goodshome',resquire:true,isFoot:true}
+    },
     {
         path:'/sale',
         name:'sale',

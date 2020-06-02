@@ -8,7 +8,6 @@ function requestHttp(options) {
     if (method == 'POST') {
       header['content-type'] = 'application/json'
     }
-    console.log(url)
     return axios({
         url:'/api'+url,
         method,
@@ -31,7 +30,6 @@ function requestHttp(options) {
 export function createAction(options) {
     const { url, payload, method, fetchOptions, cb, type } = options
     return (dispatch) => {
-        console.log('dispatch')
         return requestHttp({ url, payload, method, ...fetchOptions }).then((res) => {
             dispatch({ type, payload: cb ? cb(res) : res })
             return res

@@ -6,8 +6,7 @@ import MergeRoute from './../../MergeRoute';
 // import tab4 from './tab4';
 import tab5 from './tab5';
 import tab6 from './tab6';
-import asyncComponent from './../../components/asyncComponent'
-const goodshome = asyncComponent(() => import('./goodshome'))
+
 
 export default class goods extends React.Component{
     constructor (props) {
@@ -34,10 +33,9 @@ export default class goods extends React.Component{
 						))}
 
 					</Switch> */}
-					<Switch>
+
 						<Route path={`${match.path}/tab5`} component={tab5}></Route>
 						<Route path={`${match.path}/tab6`} component={tab6}></Route>
-					</Switch>
 					{/* <Switch>
 						<Route path={`/goodshome`} component={goodshome}></Route>
 					</Switch> */}

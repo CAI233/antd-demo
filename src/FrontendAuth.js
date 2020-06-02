@@ -3,7 +3,7 @@ import { Route,Redirect,withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux'
 
-// import Tabbar from './components/tabbar'
+// import Tabbar from './components/tabbar/tabbar'
 
 const mapStateToProps = (state, ownProps) => {
    return { token: state.puplic.token}
@@ -15,32 +15,26 @@ class FrontendAuth extends React.Component{
         super()
     }
     render(){
-        const routeProps = this.props;
-        const {meta,location,path,token} = routeProps;
+        const {meta,path,token,Component,isFoot,exact} = this.props;
         if(token){
-            let isResquire,title,isFoot ;
+            let title ;
             if(path != '/' && path != '/login'){//校验是否为首页
-                isResquire = meta.resquire;
-                title = meta.title;
-                isFoot = meta.isFoot;
+                // isResquire = meta.resquire;
+                // title = meta.title;
+                // isFoot = meta.isFoot;
                 if(!token || token==''){
                     return <Redirect to='/' />
                 }
             }else{
                 title = '登录';
             }
-            console.log('routeProps===',routeProps)
             window.document.title = title;
-            if(routeProps.exact){
-                return <div className="container">
-                    <Route exact path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
-                    {/* {isFoot ? <Tabbar path={path}  /> : ''} */}
-                </div>
+            if(exact){
+                return <Route exact path={path} render={props => (<Component {...props} />)}/>
+                    {/* {isFoot ? <Tabbar path={path}  /> : null} */}
             }else{
-                return <div className="container">
-                    <Route path={path} render={props => (<routeProps.component {...props} routes={routeProps.routes} />)}/>
-                    {/* {isFoot ? <Tabbar path={path}  /> : ''} */}
-                </div>
+                return <Route path={path} render={props => (<Component {...props} />)}/>
+                    {/* {isFoot ? <Tabbar path={path}  /> : null} */}
             }
         }else{
             return <Redirect to='/' />
