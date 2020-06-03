@@ -17,9 +17,6 @@ import sale from './pages/sale/sale';
 import notFound from './pages/notFound';
 
 export default class BasicRouter extends Component {
-  handChange(){
-    console.log(3333)
-  }
   render() {
     return (
         /* 带#号 */
@@ -32,21 +29,25 @@ export default class BasicRouter extends Component {
         </HashRouter> */
         /* 不带#号 */
         <BrowserRouter history={HashRouter }>
-            {/* <MergeRoute /> */}
-            <Switch>
               <ErrorComponent>
                 <Suspense fallback={<Spin />}>
+                <Switch>
                   <FrontendAuth exact path="/" isFoot={false} Component={login} />
-                  <FrontendAuth path="/login" isFoot={true} Component={login} />
+                  <FrontendAuth path="/login" isFoot={false} Component={login} />
                   <FrontendAuth path="/home" isFoot={true} Component={home} />
-                  <FrontendAuth path="/goods" isFoot={true} Component={goods} />
+                  <FrontendAuth path="/goods" isFoot={false} Component={goods} />
                   <FrontendAuth path="/sale" isFoot={true} Component={sale} />
-                  {/* <FrontendAuth path="*" isFoot={false} Component={notFound} /> */}
-                  <Route component={notFound}/> 
+                  <FrontendAuth path="*" isFoot={false} Component={notFound} />
+                  {/* <Route exact path="/" component={login} />
+                  <Route path="/login" component={login} />
+                  <Route path="/home" component={home} />
+                  <Route path="/goods" component={goods} />
+                  <Route path="/sale" component={sale} />
+                  <Route path="*" component={notFound} /> */}
+                </Switch>
+                <Tabbar />
                 </Suspense>
               </ErrorComponent>
-            </Switch>
-            <Tabbar />
         </BrowserRouter>
         
     );

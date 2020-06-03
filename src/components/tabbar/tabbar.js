@@ -1,5 +1,6 @@
 import React from 'react'
-import {withRouter} from 'react-router-dom';
+import {withRouter,Link} from 'react-router-dom';
+
 import { TabBar } from 'antd-mobile';
 
 import './tabbar.css'
@@ -22,6 +23,7 @@ const style ={
   bottom: 0,
   width:'100%'
 }
+@withRouter
 class Tabbar extends React.Component{
     constructor(props){
         super(props)
@@ -30,17 +32,42 @@ class Tabbar extends React.Component{
             selectedTab:path
         };
     }
-    chooseBar(val){
+    componentWillMount() {
+      // l(this.props)
+      let { location, history } = this.props;
+      console.log("props",this.props);
+      // 确保用户在浏览器改变路由，激活按钮发生变化
+      this.changeTabbarValue(location.pathname);
+      // 监听路由的变化，主要用于重定向时确保激活按钮发生变化
+      history.listen(({ pathname }, action) => {
+        console.log("router change");
+        // action === "REPLACE" &&
+        this.changeTabbarValue(pathname);
+      });
+    }
+    changeTabbarValue(pathname) {
+      console.log(pathname)
+      if(pathname === '/'){
+        this.chooseBar('/',true);
+      }else{
+        let nowPath = selectPng.find(({ path }) => pathname.indexOf(path) > -1);
+        this.chooseBar(nowPath.path,false);
+      }
+    }
+    chooseBar(val,bool){
       this.setState({
           selectedTab:val,
       }); 
-      this.props.history.push(val)
-      console.log(val)
+      if(bool){
+        this.props.history.push(val)
+      }
     }
     render(){
-        console.log(this.props)
+        const {isFoot} = this.props;
+        console.log('props',this.props)
         return (
-            <div style={style}>
+            !isFoot ? (
+              <div style={style}>
                 <TabBar unselectedTintColor="#000000" tintColor="#0B9486" barTintColor="#fafafa">
                     {selectPng.map((item) =>
                       (
@@ -51,14 +78,15 @@ class Tabbar extends React.Component{
                         selectedIcon={<div style={{width: '22px',height: '22px',background: 'url('+item.onsrc+') center center /  21px 21px no-repeat' }}/>}
                         selected={this.state.selectedTab === item.path}
                         // badge={1}
-                        onPress={() => this.chooseBar(item.path)}>
+                        onPress={() => this.chooseBar(item.path,true)}>
                       </TabBar.Item>
                       )
                     )}
                 </TabBar>
             </div>
-        )
+            ) : null 
+        ) 
     }
 }
-export default withRouter(Tabbar)
-// export default Tabbar
+// export default withRouter(Tabbar)
+export default Tabbar

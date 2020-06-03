@@ -1,4 +1,4 @@
-import {SELLER_LIST} from './../constants/puplic'
+import {SELLER_LIST,SHOW_FOOTER} from './../constants/puplic'
 
 const INITIAL_STATE = {
     token:'1234',
@@ -16,6 +16,12 @@ export default function puplic(state = INITIAL_STATE, action) {
           sellerList: kingKongAreaV5
         }
       }
+      case SHOW_FOOTER:
+        const {isFoot} = action;
+        return {
+          ...state,
+          isFoot: isFoot
+        }
       default:
         return state
     }

@@ -1,9 +1,7 @@
 import React from 'react';
 import {Route,Link,Switch} from 'react-router-dom';
-import MergeRoute from './../../MergeRoute';
-// import FrontendAuth from './../../FrontendAuth';
-// import GoodsRoutes from './route'
-// import tab4 from './tab4';
+import FrontendAuth from './../../FrontendAuth';
+
 import tab5 from './tab5';
 import tab6 from './tab6';
 
@@ -11,11 +9,9 @@ import tab6 from './tab6';
 export default class goods extends React.Component{
     constructor (props) {
         super(props)
-        console.log(props)
     }
 	render(){
 		const {match,routes} =this.props;
-		
 		return(
 			<div className="tab">
 			    <div className="top">
@@ -33,9 +29,11 @@ export default class goods extends React.Component{
 						))}
 
 					</Switch> */}
-
-						<Route path={`${match.path}/tab5`} component={tab5}></Route>
+					<Switch>
+						<Route path={`${match.path}/tab5`} abc={true} component={tab5}></Route>
 						<Route path={`${match.path}/tab6`} component={tab6}></Route>
+					</Switch>
+						
 					{/* <Switch>
 						<Route path={`/goodshome`} component={goodshome}></Route>
 					</Switch> */}

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import configStore from './store'
 
-import BasicRouter from './app.js';
+import BasicRouter from './App.js';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 //解决跨域 https://blog.csdn.net/weixin_44415625/article/details/87607924
