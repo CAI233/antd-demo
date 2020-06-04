@@ -2,7 +2,7 @@ import React from 'react';
 import {Route,Link,Switch} from 'react-router-dom';
 import FrontendAuth from './../../FrontendAuth';
 
-import tab5 from './tab5';
+import Tab5 from './tab5';
 import tab6 from './tab6';
 
 
@@ -13,7 +13,7 @@ export default class goods extends React.Component{
 	render(){
 		const {match,routes} =this.props;
 		return(
-			<div className="tab">
+			<div className="container">
 			    <div className="top">
 					<div className="left"> 
 						<Link to={`/left`}>路由3</Link>
@@ -23,24 +23,11 @@ export default class goods extends React.Component{
 						<Link to={`/goodshome`}>路由7</Link>
 					</div>   
 					<div className="right">
-					{/* <Switch>
-						{GoodsRoutes.map((route, i) => (
-							<FrontendAuth key={i} {...route} />
-						))}
-
-					</Switch> */}
 					<Switch>
-						<Route path={`${match.path}/tab5`} abc={true} component={tab5}></Route>
+						{/* <Route path={`${match.path}/tab5`} abc={true} component={Tab5}></Route> */}
+						<Route path={`${match.path}/tab5`} abc={true} render={(props) => <Tab5 {...props} isFoot={false} />}></Route>
 						<Route path={`${match.path}/tab6`} component={tab6}></Route>
 					</Switch>
-						
-					{/* <Switch>
-						<Route path={`/goodshome`} component={goodshome}></Route>
-					</Switch> */}
-					
-					{/* <MergeRoute supPath={match.path} routes={routes}/> */}
-					{/* <Route path={`${match.path}/tab5`} component={tab5}></Route>
-					<Route path={`${match.path}/tab6`} component={tab6}></Route> */}
 					</div>
 			    </div>
 			</div>

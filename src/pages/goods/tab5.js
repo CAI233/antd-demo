@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
- 
-class tab5 extends Component {
+import { connect } from 'react-redux'
+import * as actions from './../../actions/puplic'
+@connect(state => state.puplic,{...actions})
+class Tab5 extends Component {
     constructor (props) {
         super(props)
-        // console.log(props)
+        console.log('tab5',props)
+    }
+    componentDidMount(){
+        console.log('进入componentDidMount')
+        const {isFoot,dispatchIsFooter} = this.props
+        dispatchIsFooter(isFoot);
     }
  
    render() {
@@ -13,4 +20,4 @@ class tab5 extends Component {
    }
 }
  
-export default tab5
+export default Tab5
