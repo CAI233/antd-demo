@@ -4,7 +4,7 @@ import {withRouter,Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 
 import { TabBar } from 'antd-mobile';
-import './tabbar.css'
+import './index.css'
 
 
 const select = [
@@ -78,8 +78,6 @@ class Tabbar extends React.Component{
       }
     }
     render(){
-        // const {isFoot} = this.props;
-        const {isFoot} = this.state;
         return (
             <div style={style}>
               <TabBar unselectedTintColor="#000000" tintColor="#0B9486" barTintColor="#fafafa">

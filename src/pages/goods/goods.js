@@ -1,20 +1,20 @@
 import React from 'react';
 import {Route,Link,Switch} from 'react-router-dom';
-import FrontendAuth from './../../FrontendAuth';
 
+import Contain from './../../components/contain'
 import Tab5 from './tab5';
-import tab6 from './tab6';
+import Tab6 from './tab6';
 
-
-export default class goods extends React.Component{
+class Goods extends React.Component{
     constructor (props) {
         super(props)
-    }
+	}
+
 	render(){
-		const {match,routes} =this.props;
+		const {match,isFoot} =this.props;
 		return(
-			<div className="container">
-			    <div className="top">
+			<Contain patch={match.path}>
+				<div className="top">
 					<div className="left"> 
 						<Link to={`/left`}>路由3</Link>
 						<Link to={`${match.path}/tab4`}>路由4</Link>
@@ -25,12 +25,13 @@ export default class goods extends React.Component{
 					<div className="right">
 					<Switch>
 						{/* <Route path={`${match.path}/tab5`} abc={true} component={Tab5}></Route> */}
-						<Route path={`${match.path}/tab5`} abc={true} render={(props) => <Tab5 {...props} isFoot={false} />}></Route>
-						<Route path={`${match.path}/tab6`} component={tab6}></Route>
+						<Route path={`${match.path}/tab5`} render={(props) => <Tab5 {...props} />}></Route>
+						<Route path={`${match.path}/tab6`} render={(props) => <Tab6 {...props}/>}></Route>
 					</Switch>
 					</div>
 			    </div>
-			</div>
+			</Contain>
 		)
 	}
 }
+export default Goods

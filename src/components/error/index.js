@@ -24,7 +24,6 @@ class ErrorComponent extends React.Component {
     }
 
     render(){
-        console.log('waite',this.props.children)
         if(this.state.hasError){
             return (
                 // <div id="waite">

@@ -106,8 +106,9 @@ class login extends React.Component{
 // UserAdd.contextTypes = {
 //     router: React.PropTypes.object.isRequired
 // };
-connect(state => state.puplic,{...actions})(login);
-login = formProvider({
+connect(state => state.puplic,{...actions});
+
+const Login = formProvider({
   UserPhone: {
       defaultValue: '',
       rules: [
@@ -137,4 +138,4 @@ login = formProvider({
   })(login);
   // login = createForm()(login);
 
-  export default login
+  export default Login

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
- 
-class tab6 extends Component {
+
+class Tab6 extends Component {
     constructor (props) {
         super(props)
         console.log('tab6',props)
@@ -16,4 +16,4 @@ class tab6 extends Component {
    }
 }
  
-export default tab6
+export default Tab6

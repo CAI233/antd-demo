@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     token:'1234',
     sellerList:[],
     recommend: [],
-    isFoot:false
+    // isFoot:false
   }
 
 export default function puplic(state = INITIAL_STATE, action) {
@@ -16,12 +16,12 @@ export default function puplic(state = INITIAL_STATE, action) {
           sellerList: kingKongAreaV5
         }
       }
-      case SHOW_FOOTER:
-        const {isFoot} = action;
-        return {
-          ...state,
-          isFoot: isFoot
-        }
+      // case SHOW_FOOTER:
+      //   const {isFoot} = action;
+      //   return {
+      //     ...state,
+      //     isFoot: isFoot
+      //   }
       default:
         return state
     }

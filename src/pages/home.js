@@ -1,7 +1,8 @@
 import React from 'react';
 
+import Contain from './../components/contain'
 
-export default class home extends React.Component {
+export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
@@ -11,12 +12,15 @@ export default class home extends React.Component {
         console.log(props)
     }
     render() {
+        const {isFooter,match} = this.props
         return (
-            <div>
-               <p >Home页面</p> 
-               <p onClick={() => this.props.history.push('/goods')}>去商品页</p>
-               <p onClick={() => this.props.history.push('/goods/tab6')}>去商品6页</p>
-            </div>
+            <Contain patch={match.path}>
+                <div className="container">
+                    <p >Home页面</p> 
+                    <p onClick={() => this.props.history.push('/goods')}>去商品页</p>
+                    <p onClick={() => this.props.history.push('/goods/tab6')}>去商品6页</p>
+                </div>
+            </Contain>
         )
     }
 }

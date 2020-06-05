@@ -1,18 +1,20 @@
 import React from 'react';
 import {Link,Switch,Route} from 'react-router-dom';
 
+import Contain from './../../components/contain'
+
 import sale1 from './sale1';
 import sale2 from './sale2';
 
-class sale extends React.Component{
+class Sale extends React.Component{
     constructor (props) {
         super(props);
     }
 	render(){
 		const {match,routes} =this.props;
 		return(
-			<div className="tab">
-			    <div className="top">
+			<Contain patch={match.path}>
+			    <div className="container">
 					<div className="left"> 
 						<Link to={`/sale/sale4`}>路由sale1</Link>
 						<Link to={`/sale/sale5`}>路由sale2</Link>
@@ -31,8 +33,8 @@ class sale extends React.Component{
 						</Switch>
 					</div>
 			    </div>
-			</div>
+			</Contain>
 		)
 	}
 }
-export default sale;
+export default Sale;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import waite from './../assets/images/waite.png';
-export default class notFound extends React.Component {
+export default class NotFound extends React.Component {
 
     constructor(props) {
         super(props);
